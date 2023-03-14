@@ -1,48 +1,74 @@
 
 import { weather_data } from './data.js';
 
-let loadDayForecastData = () => {
+let loadDayForecastData = (data) => {
 
-    let ciudad=document.getElementById("city");
-    ciudad.innerHTML=weather_data[0].city;
-    let fecha=document.getElementById("date");
-    fecha.innerHTML=weather_data[0].date;
-    let tem_max=document.getElementById("maxtemperature");
-    tem_max.innerHTML=weather_data[0].maxtemperature;
-    let tem_min=document.getElementById("mintemperature");
-    tem_min.innerHTML=weather_data[0].mintemperature;
-    let cloud=document.getElementById("cloudiness");
-    cloud.innerHTML=weather_data[0].cloudiness;
-    let wind=document.getElementById("wind");
-    wind.innerHTML=weather_data[0].wind;
-    let rain=document.getElementById("rainfall");
-    rain.innerHTML=weather_data[0].rainfall;
+     
+    let element_1=document.querySelector("#dropdownMenuButton");
 
-    let l_icon=document.getElementById("late_icon");
-    l_icon.innerHTML=weather_data[0].forecast_today[0].icon;
-    let l_tem=document.getElementById("late_temperature");
-    l_tem.innerHTML=weather_data[0].forecast_today[0].temperature;
-    let l_fore=document.getElementById("late_forecast");
-    l_fore.innerHTML=weather_data[0].forecast_today[0].forecast;
-    let l_text=document.getElementById("late_text");
-    l_text.innerHTML=weather_data[0].forecast_today[0].text;
+    let onChange = function(){
+        let valores= element_1.value
+        let texto = element_1.options[element_1.selectedIndex].text
+        console.log(valores)
+        
+        for (let i of data){
+            if (i["city"] === valores){
+                console.log(i)
+                let ciudad=document.getElementById("city");
+                ciudad.innerHTML=i.city ;
+                let fecha=document.getElementById("date");
+                fecha.innerHTML=i.date;
+                let tem_max=document.getElementById("maxtemperature");
+                tem_max.innerHTML=i.maxtemperature;
+                let tem_min=document.getElementById("mintemperature");
+                tem_min.innerHTML=i.mintemperature;
+                let cloud=document.getElementById("cloudiness");
+                cloud.innerHTML=i.cloudiness;
+                let wind=document.getElementById("wind");
+                wind.innerHTML=i.wind;
+                let rain=document.getElementById("rainfall");
+                rain.innerHTML=i.rainfall;
 
-    let n_icon=document.getElementById("night_icon");
-    n_icon.innerHTML=weather_data[0].forecast_today[1].icon;
-    let n_tem=document.getElementById("night_temperature");
-    n_tem.innerHTML=weather_data[0].forecast_today[1].temperature;
-    let n_fore=document.getElementById("night_forecast");
-    n_fore.innerHTML=weather_data[0].forecast_today[1].forecast;
-    let n_text=document.getElementById("night_text");
-    n_text.innerHTML=weather_data[0].forecast_today[1].text;
+                
+                let l_icon=document.getElementById("late_icon");
+                l_icon.innerHTML=i.forecast_today[0].icon;
+                let l_tem=document.getElementById("late_temperature");
+                l_tem.innerHTML=i.forecast_today[0].temperature;
+                let l_fore=document.getElementById("late_forecast");
+                l_fore.innerHTML=i.forecast_today[0].forecast;
+                let l_text=document.getElementById("late_text");
+                l_text.innerHTML=i.forecast_today[0].text;
+
+                let n_icon=document.getElementById("night_icon");
+                n_icon.innerHTML=i.forecast_today[1].icon;
+                let n_tem=document.getElementById("night_temperature");
+                n_tem.innerHTML=i.forecast_today[1].temperature;
+                let n_fore=document.getElementById("night_forecast");
+                n_fore.innerHTML=i.forecast_today[1].forecast;
+                let n_text=document.getElementById("night_text");
+                n_text.innerHTML=i.forecast_today[1].text;
+            }
+        }
+
+
+    }
+
+    element_1.onchange=onChange;
+
 
 }
 
 let loadWeekForecastData = () => {
 	arreglo_semana=weather_data[0].forecast_week
+
+    let dia_2=document.getElementById("dia2")
+    dia_2.innerHTML=weather_data[0].forecast_week[1].text;
+    let fecha2=document.getElementById("fecha2")
+    fecha2.innerHTML=weather_data[0].forecast_week[1].date;
+
 	
 }
 
 
-loadDayForecastData();
-loadWeekForecastData();
+loadDayForecastData(weather_data);
+loadWeekForecastData(weather_data,loadDayForecastData);
