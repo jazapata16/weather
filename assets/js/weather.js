@@ -58,17 +58,39 @@ let loadDayForecastData = (data) => {
 
 }
 
-let loadWeekForecastData = () => {
+let loadWeekForecastData = (data) => {
 	arreglo_semana=weather_data[0].forecast_week
 
-    let dia_2=document.getElementById("dia2")
-    dia_2.innerHTML=weather_data[0].forecast_week[1].text;
-    let fecha2=document.getElementById("fecha2")
-    fecha2.innerHTML=weather_data[0].forecast_week[1].date;
+    let element_1=document.querySelector("#dropdownMenuButton");
+
+    let onChange = function(){
+        let valores= element_1.value
+        let texto = element_1.options[element_1.selectedIndex].text
+        console.log(valores)
+
+        for (let i of data){
+            for (let i of data){
+
+                let dia_1=document.getElementById("dia1")
+                dia_1.innerHTML=i.forecast_week[0].text;
+                let fecha1=document.getElementById("fecha1")
+                fecha1.innerHTML=i.forecast_week[0].date;
+
+                let dia_2=document.getElementById("dia2")
+                dia_2.innerHTML=i.forecast_week[1].text;
+                let fecha2=document.getElementById("fecha2")
+                fecha2.innerHTML=i.forecast_week[1].date;
+
+            }
+
+        }
+    }
+
+
 
 	
 }
 
 
 loadDayForecastData(weather_data);
-loadWeekForecastData(weather_data,loadDayForecastData);
+loadWeekForecastData(weather_data);
